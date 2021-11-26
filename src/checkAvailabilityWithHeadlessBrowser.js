@@ -19,11 +19,11 @@ console.log("SITES_TO_CHECK :", SITES_TO_CHECK);
 
 const checkBuyButtonSelector = async (site) => {
   try {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(site.url, { waitUntil: "networkidle2" });
     // await page.waitForSelector("main", { timeout: 3000 });
-    await page.waitForSelector("main", { visible: true, timeout: 0 });
+    // await page.waitForSelector("main", { visible: true, timeout: 0 });
 
     const html = await page.evaluate(() => document.querySelector("html").innerHTML);
     const doc = parser.parse(html);
