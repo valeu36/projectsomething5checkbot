@@ -7,7 +7,8 @@
     "cron": "^1.8.2",
     "dotenv": "^8.2.0",
     "node-fetch": "^1.7.3",
-    "node-html-parser": "^2.0.0"
+    "node-html-parser": "^2.0.0",
+    "puppeteer": "^11.0.0"
   },
   "devDependencies": {},
   "scripts": {

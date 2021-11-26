@@ -1,7 +1,8 @@
 require("dotenv").config();
 const CronJob = require("cron").CronJob;
 const utils = require("./src/utils");
-const availabilityCheck = require("./src/checkAvailability");
+// const availabilityCheck = require("./src/checkAvailability");
+const availabilityCheck = require("./src/checkAvailabilityWithHeadlessBrowser");
 
 const stats = {
   totalRuns: 0,
@@ -10,12 +11,12 @@ const stats = {
 
 const checkStoresForConsoleAvailability = new CronJob(
   `*/${process.env.CHECK_FREQUENCY || 5} * * * *`,
-  function () {
+  async function () {
     const time = new Date();
     console.log("run check at " + new Date());
     stats.totalRuns++;
     stats.lastRun = time;
-    availabilityCheck.runAvailabilityCheck();
+    await availabilityCheck.runAvailabilityCheck();
   },
   null,
   false,
