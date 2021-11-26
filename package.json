@@ -1,0 +1,22 @@
+{
+  "name": "project-something-5-check",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^1.7.3",
+    "node-html-parser": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node --http-parser=legacy --insecure-http-parser ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "12.22.1"
+  },
+  "author": "",
+  "license": "ISC"
+}
