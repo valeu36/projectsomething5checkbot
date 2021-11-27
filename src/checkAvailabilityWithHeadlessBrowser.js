@@ -23,17 +23,16 @@ const checkBuyButtonSelector = async (site) => {
     const page = await browser.newPage();
     await page.goto(site.url, { waitUntil: "networkidle2" });
     // await page.waitForSelector("main", { timeout: 3000 });
-    // await page.waitForSelector("main", { visible: true, timeout: 0 });
+    await page.waitForSelector("body", { visible: true, timeout: 0 });
 
     const html = await page.evaluate(() => document.querySelector("html").innerHTML);
+
     const doc = parser.parse(html);
     const buyButton = doc.querySelector(site.buttonSelector);
 
-    console.log({ buyButton });
-
     if (buyButton) {
       utils.sendUpdate({
-        text: "Stock is available here " + site.url,
+        text: "Stock is available here: " + site.url,
       });
     }
 
