@@ -17,12 +17,10 @@ const generateSitesData = () => {
 const SITES_TO_CHECK = generateSitesData();
 console.log("SITES_TO_CHECK :", SITES_TO_CHECK);
 
-const checkBuyButtonSelector = async (site) => {
+const checkBuyButtonSelector = async (site, browser) => {
   try {
-    const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(site.url, { waitUntil: "networkidle2" });
-    // await page.waitForSelector("main", { timeout: 3000 });
     await page.waitForSelector("body", { visible: true, timeout: 0 });
 
     const html = await page.evaluate(() => document.querySelector("html").innerHTML);
@@ -35,19 +33,16 @@ const checkBuyButtonSelector = async (site) => {
         text: "Stock is available here: " + site.url,
       });
     }
-
-    await browser.close();
   } catch (e) {
     console.log(e);
   }
 };
 
 const runAvailabilityCheck = async () => {
-  await Promise.all(
-    SITES_TO_CHECK.map(async (site) => {
-      return await checkBuyButtonSelector(site);
-    })
-  );
+  const browser = await puppeteer.launch();
+  const promised = SITES_TO_CHECK.map((site) => checkBuyButtonSelector(site, browser));
+  await Promise.all(promised);
+  browser.close();
 };
 
 module.exports = { runAvailabilityCheck: runAvailabilityCheck };
